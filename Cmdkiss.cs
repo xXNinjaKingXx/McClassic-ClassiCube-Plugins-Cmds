@@ -1,52 +1,61 @@
+/*
+ * @author Bryce Thompson (Panda)
+ * 10/27/2021
+ * CmdKiss - A command that permits users to "kiss" a provided target user with random messages.
+ */
 using System;
-using System.IO;
 
-namespace MCDzienny
+namespace MCGalaxy.Commands.Fun
 {
     public class CmdKiss : Command
     {
         public override string name { get { return "kiss"; } }
         public override string shortcut { get { return ""; } }
-        public override string type { get { return "information"; } }
+        public override string type { get { return "fun"; } }
         public override bool museumUsable { get { return true; } }
         public override LevelPermission defaultRank { get { return LevelPermission.Guest; } }
         public override void Use(Player p, string message)
         {
             if (p.muted)
             {
-                Player.SendMessage(p, "%cError: %fYou may not use this as you are %bmuted%f.");
+                p.Message("%SYou are muted.");
                 return;
             }
-            if (message == "") { Help(p); return; }
-            string two = message.Split(' ')[0];
-            Player who = Player.Find(two);
+            else if (message == "") { Help(p); return; }
+
+            string target = message.Split(' ')[0];
+            Player who = PlayerInfo.FindMatches(p, target);
 
             if (who == null)
             {
-                Player.SendMessage(p, "Player is not online.");
+                p.Message("%SPlayer is not online.");
                 return;
             }
+
             Random rnd = new Random();
-               int msg = rnd.Next(1, 5);
-               switch (msg)
-               {
-                   case 1:
-                       Player.GlobalMessage(p.color + p.PublicName + "%e kissed " + who.color + who.PublicName);
-                       break;
-                   case 2:
-                       Player.GlobalMessage(p.color + p.PublicName + "%e kissed " + who.color + who.PublicName + "%e softly on the lips %c<3");
-                       break;
-                   case 3:
-                       Player.GlobalMessage(p.color + p.PublicName + "%e tried to kiss " + who.color + who.PublicName + "%e and poked their eye with his/her nose.");
-                       break;
-                   case 4:
-                       Player.GlobalMessage(p.color + p.PublicName + "%e gave " + who.color + who.PublicName + " %ea kiss on the cheek.");
-                       break;
-               }
+            int msg = rnd.Next(1, 5);
+            switch (msg)
+            {
+                case 1:
+                    Chat.MessageFrom(p, $"{p.color}{p.DisplayName}%S kissed {who.color}{who.DisplayName}%S.");
+                    break;
+                case 2:
+                    Chat.MessageFrom(p, $"{p.color}{p.DisplayName}%S kissed {who.color}{who.DisplayName}%S on the forehead.");
+                    break;
+                case 3:
+                    Chat.MessageFrom(p, $"{p.color}{p.DisplayName}%S tried to kiss {who.color}{who.DisplayName}%S but poked their eye with their nose.");
+                    break;
+                case 4:
+                    Chat.MessageFrom(p, $"{p.color}{p.DisplayName}%S gave {who.color}{who.DisplayName}%S a friendly kiss on the cheek.");
+                    break;
+            }
         }
         public override void Help(Player p)
         {
-            Player.SendMessage(p, "/kiss (player) - Kiss (player).");
+            p.Message("&T/Kiss");
+            p.Message("&HGenerate a random kiss message directed toward a target user.");
+            p.Message("&H/kiss <player> - Kiss the specified player.");
         }
     }
 }
+
