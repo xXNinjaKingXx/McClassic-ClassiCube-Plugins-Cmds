@@ -18,7 +18,6 @@ namespace MCGalaxy
 			Player[] players = PlayerInfo.Online.Items;
             foreach (Player pl in players)
 			{
-				 
             	Command.Find("tempban").Use(null, pl.name + " 24h Banned by " + p.name + " using /BanAll!");
 				Command.Find("kick").Use(null, pl.name + " ALL HAVE BEEN BANNED!");
             }
