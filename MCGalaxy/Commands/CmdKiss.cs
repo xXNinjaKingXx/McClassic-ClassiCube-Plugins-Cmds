@@ -37,16 +37,16 @@ namespace MCGalaxy.Commands.Fun
             switch (msg)
             {
                 case 1:
-                    Chat.MessageFrom(p, $"{p.color}{p.DisplayName}%S kissed {who.color}{who.DisplayName}%S.");
+                    Chat.MessageFrom(p, $"{p.ColoredName}%S kissed {who.ColoredName}%S.");
                     break;
                 case 2:
-                    Chat.MessageFrom(p, $"{p.color}{p.DisplayName}%S kissed {who.color}{who.DisplayName}%S on the forehead.");
+                    Chat.MessageFrom(p, $"{p.ColoredName}%S kissed {who.ColoredName}%S on the forehead.");
                     break;
                 case 3:
-                    Chat.MessageFrom(p, $"{p.color}{p.DisplayName}%S tried to kiss {who.color}{who.DisplayName}%S but poked their eye with their nose.");
+                    Chat.MessageFrom(p, $"{p.ColoredName}%S tried to kiss {who.ColoredName}%S but poked their eye with their nose.");
                     break;
                 case 4:
-                    Chat.MessageFrom(p, $"{p.color}{p.DisplayName}%S gave {who.color}{who.DisplayName}%S a friendly kiss on the cheek.");
+                    Chat.MessageFrom(p, $"{p.ColoredName}%S gave {who.ColoredName}%S a friendly kiss on the cheek.");
                     break;
             }
         }
